@@ -1,15 +1,32 @@
-velocidad=int(input("Ingrese la velocidad " ))
-if velocidad <=60 and velocidad >0:
-    print("velocidad permitida")
-elif velocidad >=61 and velocidad <=80:
-    print("Cometio una infraccion leve por conducir sobre el limite de velocidad")
-    print("Por esa misma razon tendra una multa de $200.000")
-elif velocidad >=81 and velocidad <=100:
-    print("Cometio una infraccion grave por conducir sobre el limite de velocidad") 
-    print("Por esa misma razon tendra una multa de $400.000")
-elif velocidad >=101 and velocidad <=119:
-    print("Cometio una infraccion MUY grave por conducir sobre el limite de velocidad")
-    print("Por esa misma razon tendra una multa de $800.000")
-elif velocidad >=120:
-    print("Su vehiculo sera detenido por sobrepasar los limites")
-else: print("Error, dato no valido")
+def clasificar_velocidad(velocidad):
+    if velocidad <= 0:
+        return "Error: la velocidad debe ser mayor que 0"
+    if velocidad <= 60:
+        return "Velocidad permitida"
+    
+    infracciones = [
+        (80,  "leve",     "$200.000"),
+        (100, "grave",    "$400.000"),
+        (119, "MUY grave","$800.000"),
+    ]
+    
+    for limite, tipo, multa in infracciones:
+        if velocidad <= limite:
+            return f"Infracción {tipo}\nMotivo: exceder el límite de velocidad\nMulta: {multa}"
+    
+    return "Medida extrema\nEl vehículo será detenido por sobrepasar ampliamente los límites"
+
+def pedir_velocidad():
+    while True:
+        try:
+            return int(input("Ingrese la velocidad del vehículo (km/h): "))
+        except ValueError:
+            print("Error: debes ingresar un número válido.")
+
+def main():
+    velocidad = pedir_velocidad()
+    print("\n--- RESULTADO ---")
+    print(clasificar_velocidad(velocidad))
+    print("-----------------\n")
+
+main()
